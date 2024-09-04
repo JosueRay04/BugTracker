@@ -1,0 +1,17 @@
+<h1>Notifications</h1>
+<div class="notifications-container">
+<div *ngIf="notifications.length > 0; else noNotifications">
+    <ul>
+        <li *ngFor="let notification of notifications">
+            <p>{{ notification.sender }} {{ notification.message }} on {{ notification.formattedDate }} at {{ notification.formattedTime }}</p>
+            <button class="delete-notification-button" matTooltip="Delete Notification" (click)="deleteNotification(notification.id)">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </li>
+    </ul>
+</div>
+</div>
+
+<ng-template #noNotifications>
+    <p>No notifications available.</p>
+</ng-template>

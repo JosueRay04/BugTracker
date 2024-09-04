@@ -1,0 +1,159 @@
+<h1>Projects</h1>
+<button mat-fab class="add-project-button" (click)="toogleProjectForm()" matTooltip="Add Project">
+    <mat-icon>add</mat-icon>
+</button>
+<button mat-fab class="add-collaborator-button" (click)="toogleCollaboratorForm()" matTooltip="Add Collaborator">
+    <mat-icon>person_add</mat-icon>
+</button>
+<button mat-fab class="delete-project-button" (click)="toogleDeleteProjectForm()" matTooltip="Delete Project">
+    <mat-icon>delete_forever</mat-icon>
+</button>
+<button mat-fab class="delete-collaborator-button" (click)="toogleDeleteCollaboratorForm()" matTooltip="Eliminate Collaborator From Project">
+    <mat-icon>remove_circle_outline</mat-icon>
+</button>
+<button mat-fab class="change-category-button" (click)="toogleChangeCategoryForm()" matTooltip="Change Category From Project">
+    <mat-icon>ballot</mat-icon>
+</button>
+<button mat-fab class="change-role-button" (click)="toogleChangeRoleForm()" matTooltip="Change Collaborator Role">
+    <mat-icon>persone_outline</mat-icon>
+</button>
+<div *ngIf="projects.length > 0" class="row">
+    <div *ngFor="let project of projects.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="card">
+        <div class="card-head">Name: {{ project.name }}</div>
+            <div class="card-body">
+                <p [style.color]="project.userName === userLocalStorage ? 'red' : '#555'">Author: {{ project.userName }}</p>
+                <p>Description: {{ project.description }}</p>
+                <p>Category: {{ project.category }}</p>
+                <p>Created At: {{ project.createdAt | date:'medium' }}</p>
+                <p>Expected Completion At: {{ project.expectedCompletionAt | date:'medium' }}</p>
+                <p>Category: {{ project.category}}</p>
+                <div *ngFor="let collaborator of project.collaborators">
+                    <p>Collaborator's:</p>
+                    <p>{{ collaborator.collaborator }} - Role: {{ collaborator.role }}</p>
+                </div>
+            </div>
+    </div>
+</div>
+<mat-paginator [pageSize]="itemsPerPage" [length]="projects.length" (page)="onPageChange($event)" showFirstLastButtons class="mat-paginator"></mat-paginator>
+<div *ngIf="showProjectForm" id="projectForm" class="project-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleProjectForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="createProject()" [formGroup]="projectForm">
+        <label for="name">Name Project</label>
+        <input type="text" id="name" name="name" formControlName="name" required>
+    
+        <label for="userName">Created By</label>
+        <input type="text" id="userName" name="userName" formControlName="userName" [value]="projectForm.get('userName')?.value" readonly>
+    
+        <label for="description">Description</label>
+        <textarea id="description" name="description" formControlName="description" style="width: 100%; height: 110px; resize: none;" required></textarea>
+    
+        <label for="expectedCompletionAt">Expected Completion At</label>
+        <input type="date" id="expectedCompletionAt" name="expectedCompletionAt" formControlName="expectedCompletionAt" required>
+    
+        <label for="category">Category</label>
+        <select id="category" name="category" formControlName="category" required>
+            <option value="OPEN">OPEN</option>
+            <!--<option value="IN_PROGRESS">IN PROGRESS</option>
+            <option value="CLOSED">CLOSED</option>-->
+        </select>
+    
+        <button type="submit" class="add-project-btn">Add Project</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<div *ngIf="showCollaboratorForm" id="collaboratorForm" class="collaborator-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleCollaboratorForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="addCollaborator()" [formGroup]="collaboratorForm">
+        <label for="userSearch">Search User</label>
+        <input type="text" id="userSearch" name="userSearch" formControlName="userSearch" list="usersList" required>
+        <datalist id="usersList">
+            <option *ngFor="let user of users" [value]="user.userName">{{ user.userName }}</option>
+        </datalist>
+
+        <label for="role">Role</label>
+        <select id="role" name="role" formControlName="role" required>
+            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+            <option value="DEVELOPER">DEVELOPER</option>
+            <option value="TESTER">TESTER</option>
+        </select>
+
+        <label for="project">Project</label>
+        <select id="project" name="project" formControlName="project" required>
+            <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+        </select>
+    
+        <button type="submit" class="add-collaborator-btn">Add Collaborator</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<div *ngIf="showDeleteProjectForm" id="deleteProjectForm" class="deleteProject-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleDeleteProjectForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="deleteProject()" [formGroup]="deleteProjectForm">
+        <label for="project">Project</label>
+        <select id="project" name="project" formControlName="project" required>
+            <!-- Cambiado project.id a project.name -->
+            <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+        </select>
+    
+        <button type="submit" class="delete-project-btn">Delete Project</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<div *ngIf="showDeleteCollaboratorForm" id="deleteCollaboratorForm" class="deleteCollaborator-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleDeleteCollaboratorForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="deleteCollaborator()" [formGroup]="deleteCollaboratorForm">
+        <label for="userSearch">Search User</label>
+        <input type="text" id="userSearch" name="userSearch" formControlName="userSearch" list="usersList" required>
+        <datalist id="usersList">
+            <option *ngFor="let user of users" [value]="user.userName">{{ user.userName }}</option>
+        </datalist>
+        <label for="project">Project</label>
+        <select id="project" name="project" formControlName="project" required>
+            <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+        </select>
+    
+        <button type="submit" class="delete-collaborator-btn">Delete Collaborator From Project</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<div *ngIf="showChangeCategoryForm" id="chaneCategoryForm" class="changeCategory-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleChangeCategoryForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="changeCategory()" [formGroup]="changeCategoryForm">
+        <label for="project">Project</label>
+        <select id="project" name="project" formControlName="project" required>
+            <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+        </select>
+        <label for="category">Category</label>
+        <select id="category" name="category" formControlName="category" required>
+            <option value="OPEN">OPEN</option>
+            <option value="CLOSED">CLOSED</option>
+        </select>
+        <button type="submit" class="change-category-btn">Change Category</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<div *ngIf="showChangeRoleForm" id="changeRoleForm" class="changeRole-form-container" [ngDraggable]="true">
+    <button class="close-button" (click)="toogleChangeRoleForm()"><mat-icon>cancel</mat-icon></button>
+    <form (submit)="changeRole()" [formGroup]="changeRoleForm">
+        <label for="userSearch">Search User</label>
+        <input type="text" id="userSearch" name="userSearch" formControlName="userSearch" list="usersList" required>
+        <datalist id="usersList">
+            <option *ngFor="let user of users" [value]="user.userName">{{ user.userName }}</option>
+        </datalist>
+        <label for="role">Role</label>
+        <select id="role" name="role" formControlName="role" required>
+            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+            <option value="DEVELOPER">DEVELOPER</option>
+            <option value="TESTER">TESTER</option>
+        </select>
+        <label for="project">Project</label>
+        <select id="project" name="project" formControlName="project" required>
+            <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+        </select>
+        <button type="submit" class="change-role-btn">Change Role</button>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>
+
+
+

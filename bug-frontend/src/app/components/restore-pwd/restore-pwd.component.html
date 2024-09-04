@@ -1,0 +1,19 @@
+<div class="restorepwd-box">
+    <h2>Restore Password</h2>
+    <form *ngIf="!loading" method="POST">
+        <div class="user-box">
+            <input type="text" [(ngModel)]="token" id = "token" name = "token" placeholder="Token"> <br><br>
+        </div>
+        <div class="user-box">
+            <input type="{{ passwordVisible ? 'text' : 'password' }}" [(ngModel)]="password" id="password" name="password" size="25" placeholder="New password" #passwordField> <br><br>
+            <span class="toggle-password" (click)="togglePasswordVisibility()">
+                <i class="fa" [ngClass]="{'fa-eye': passwordVisible, 'fa-eye-slash': !passwordVisible}"></i>
+            </span>
+        </div>
+        <button class="button" type="submit" id="button" (click)="restorePwd()">Change Password</button>
+        <p class="signup-text">Do not you have an account yet? <a routerLink="/sign">Sign up</a></p>
+        <p class="signup-text">Forgot your password? <a routerLink="/requestPwd">Recover your password</a></p>
+        <p class="signup-text">Do you already have an account? <a routerLink="/login">Sign in</a></p>
+    </form>
+    <app-spinner *ngIf="loading"></app-spinner>
+</div>

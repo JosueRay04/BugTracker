@@ -1,0 +1,74 @@
+/* dashboard.component.css */
+
+.chart-container {
+    display: flex;
+}
+
+.chart {
+    margin-right: 20px;
+}
+
+.legend-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.legend-percentage {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.chart-project {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    width: 650px;
+}
+
+.legend-container-project {
+    background-color: #f0f0f0;
+    padding: 10px;
+    width: 97%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.legend-item-project {
+    color: #333;
+}
+
+.legend-percentage-project {
+    color: #555;
+    font-weight: bold;
+}
+
+.chart-bug {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 650px;
+    background-color: #fff;
+}
+
+.legend-container-bug {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 97%;
+    margin-top: 10px;
+}
+
+.legend-item-bug {
+    color: #333;
+}
+
+.legend-percentage-bug {
+    color: #555;
+    font-weight: bold;
+}

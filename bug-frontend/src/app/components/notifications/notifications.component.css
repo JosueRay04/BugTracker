@@ -1,0 +1,47 @@
+/* notifications.component.css */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    position: relative; /* Añade posición relativa para el posicionamiento absoluto del botón */
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+li:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilos del botón de eliminación */
+.delete-notification-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: #fff;
+    border-radius: 15%;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+
+.delete-notification-button:hover {
+    background-color: black;
+}

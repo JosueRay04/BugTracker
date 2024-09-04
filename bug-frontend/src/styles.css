@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border-radius: .5rem;
+    background-color: #FFF;
+    margin: 0 .25rem .5rem #E6EDEF;
+}
+
+.card-head {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #EDF1F7;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.card-body { 
+    padding: 1rem 1.5rem;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#searchBar {
+    width: 500px;
+}
+
+.fa-magnifying-glass {
+    margin-right: 5px;
+}
+
+#Boton_new{
+    background-color: orangered;
+    color: #E6EDEF;
+}

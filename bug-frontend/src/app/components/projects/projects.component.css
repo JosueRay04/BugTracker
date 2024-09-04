@@ -1,0 +1,554 @@
+.card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-head {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: red;
+}
+
+.card-body {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+
+  /* Agregar estilo específico para los detalles adicionales */
+.card-body p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.add-project-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.add-project-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.add-collaborator-button {
+    position: fixed;
+    bottom: 20px;
+    right: 90px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.add-collaborator-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.delete-project-button {
+    position: fixed;
+    bottom: 20px;
+    right: 160px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.delete-project-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.delete-collaborator-button {
+    position: fixed;
+    bottom: 20px;
+    right: 230px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.delete-collaborator-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.change-category-button {
+    position: fixed;
+    bottom: 20px;
+    right: 300px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.change-category-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.change-role-button {
+    position: fixed;
+    bottom: 20px;
+    right: 370px;
+    background-color: red; /* Color rojo */
+    color: #fff; /* Color del texto */
+    border-radius: 17%; /* Hace el botón redondeado */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none; /* Elimina el borde */
+}
+
+.change-role-button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+
+/* ---------- FORMS ---------- */
+
+.ng-draggable {
+    cursor: grab;
+}
+
+.ng-dragging {
+    cursor: grabbing;
+}
+
+.project-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.project-form-container,  form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.project-form-container label {
+    margin-bottom: 8px;
+}
+
+.project-form-container input,
+.project-form-container textarea,
+.project-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.project-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.project-form-container .add-project-btn:hover {
+    background-color: black;
+}
+
+.project-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+.close-button:hover {
+    background: none; /* Elimina el fondo al pasar el mouse */
+}
+
+.mat-paginator{
+    position: absolute;
+    top: 660px; 
+    left: 450px;
+}
+
+.collaborator-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.collaborator-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.collaborator-form-container label {
+    margin-bottom: 8px;
+}
+
+.collaborator-form-container input,
+.collaborator-form-container textarea,
+.collaborator-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.collaborator-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.collaborator-form-container .add-collaborator-btn:hover {
+    background-color: black;
+}
+
+.collaborator-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+.collaborator-form-container .close-button:hover {
+    background: none;
+}
+
+.deleteProject-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.deleteProject-form-container,  form {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteProject-form-container label {
+    margin-bottom: 8px;
+}
+
+.deleteProject-form-container input,
+.deleteProject-form-container textarea,
+.deleteProject-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.deleteProject-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteProject-form-container .delete-project-btn:hover {
+    background-color: black;
+}
+
+.deleteProject-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+.deleteCollaborator-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+.deleteCollaborator-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.deleteCollaborator-form-container,  form {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteCollaborator-form-container label {
+    margin-bottom: 8px;
+}
+
+.deleteCollaborator-form-container input,
+.deleteCollaborator-form-container textarea,
+.deleteCollaborator-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.deleteCollaborator-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteCollaborator-form-container .delete-collaborator-btn:hover {
+    background-color: black;
+}
+
+.deleteCollaborator-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+.changeCategory-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.changeCategory-form-container,  form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.changeCategory-form-container label {
+    margin-bottom: 8px;
+}
+
+.changeCategory-form-container input,
+.changeCategory-form-container textarea,
+.changeCategory-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.changeCategory-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.changeCategory-form-container .change-category-btn:hover {
+    background-color: black;
+}
+
+.changeCategory-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+
+.changeRole-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.changeRole-form-container,  form {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.changeRole-form-container label {
+    margin-bottom: 8px;
+}
+
+.changeRole-form-container input,
+.changeRole-form-container textarea,
+.changeRole-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.changeRole-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.changeRole-form-container .change-role-btn:hover {
+    background-color: black;
+}
+
+.changeRole-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}

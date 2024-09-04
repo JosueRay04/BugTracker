@@ -1,0 +1,203 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/dashboard">BugTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            </li>
+            </ul>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchBar" #searchBar>
+            <button class="icon-button" (click)="SearchButtonClick(searchBar.value)">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        </div>
+</nav>
+<div class="row border-top"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Status:
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="loadBugByState('OPEN')">OPEN</a>
+                    <a class="dropdown-item" (click)="loadBugByState('RESOLVED')">RESOLVED</a>
+                    <a class="dropdown-item" (click)="loadBugByState('CLOSED')">CLOSED</a>
+                </div>
+            </div>
+
+            <div class="dropdown-menu">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Priority:
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item">Priority</a>
+                    <a class="dropdown-item" (click)="loadBugByPriority('LOW')">LOW</a>
+                    <a class="dropdown-item" (click)="loadBugByPriority('MEDIUM')">MEDIUM</a>
+                    <a class="dropdown-item" (click)="loadBugByPriority('HIGH')">HIGH</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="cargarOpcionesProyecto()">
+                    Project:
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a *ngFor="let opcion of opcionesProyecto" class="dropdown-item" (click)="loadBugByProyecto(opcion.name)">{{ opcion.name }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end">
+            <button class="btn btn-primary" id="Boton_new" (click)="openBugForm()">Submit Bug</button>
+        </div>
+        
+        <!-- Formulario -->
+          <div *ngIf="showBugForm" class="bug-form-container" [ngDraggable]="true">
+            <button class="close-button" (click)="closeBugForm()"><mat-icon>cancel</mat-icon></button>
+            <form (submit)="submitBugForm()" [formGroup]="bugForm" enctype="multipart/form-data">
+            <!-- Campos del formulario -->
+            <label for="name">Bug Name:</label>
+            <input type="text" id="name" formControlName="name" required>
+
+            <label for="summary">Summary:</label>
+            <input type="text" id="summary" formControlName="summary">
+
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description" required></textarea>
+
+            
+
+            <label for="opciones">State:</label>
+            <select id="opcionesstate" name="opcionesstate" formControlName="selectedOptionState" required>
+            <option value="" disabled selected>Select a option</option>
+            <option value="OPEN">OPEN</option>
+            </select>
+
+            <label for="opciones">Priority:</label>
+            <select id="opcionespriority" name="opcionespriority" formControlName="selectedOptionPriority" required>
+            <option value="" disabled selected>Select a option</option>
+            <option value="LOW">LOW</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="HIGH">HIGH</option>
+            </select>
+
+            <label for="opciones">Severity:</label>
+            <select id="opcionesseverity" name="opcionesseverity" formControlName="selectedOptionSeverity" required>
+            <option value="" disabled selected>Select a option</option>
+            <option value="LOW">LOW</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="HIGH">HIGH</option>
+            </select>
+
+            <label for="expectedCompletionAt">Expected Completion At:</label>
+            <input type="date" id="expectedCompletionAt" name="expectedCompletionAt" formControlName="expectedCompletionAt" required>
+
+            <label for="projectSelect">Select a Project:</label>
+            <select id="projectSelect" name="projectSelect" formControlName="selectedOptionProjectName" required (change)="onProjectSelectChange()">
+                <option value="" disabled selected>Select a Project</option>
+                <option *ngFor="let project of projects" [value]="project.name">{{ project.name }}</option>
+            </select>
+
+            <label for="projectSelect">Collaborator:</label>
+            <select id="opciones" name="opciones" formControlName="selectedOptionColaborations" required>
+                <option value="" disabled selected></option>
+                <option *ngFor="let collaborator of bugForm.get('selectedOptionColaborations')?.value" [value]="collaborator">{{ collaborator }}</option>
+            </select>
+            
+            <label for="image">Select Image:</label>
+            <!--<input type="file" id="image" (change)="onFileChange($event)" formControlName="image" accept="image/*"> --> 
+            <input type="file" (change)="onFileSelected($event)" formControlName="image" accept="image/*"/>
+
+            <button type="submit" class="submit-bug-btn" [disabled]="bugForm.invalid || !bugForm.get('selectedOptionColaborations')?.value || !collaboratorsAvailable()" [ngStyle]="{'background-color': bugForm.invalid || !bugForm.get('selectedOptionColaborations')?.value || !collaboratorsAvailable() ? 'gray' : buttonColor}">Submit Bug</button>
+            </form>
+        </div>
+    </div>
+
+<div class="row col-12"></div>
+<div class="table-responsive">
+  <table class="table table-fixed">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 250px;">Bug:</th>
+        <th scope="col">Project</th>
+        <th scope="col">Autor:</th>
+        <th scope="col">Status:</th>
+        <th scope="col">Severity:</th>
+        <th scope="col">CreatedAt:</th>
+        <th scope="col">Priority:</th>
+        <th scope="col">Assigned To:</th>
+        <th scope="col">Answered:</th>
+    </tr>
+    </thead>
+    <tbody>
+        <!-- Aplica la paginación mostrando solo los primeros 10 elementos de la matriz -->
+      <tr *ngFor="let bug of pagedBugs">
+        <td (click)="navigateToBugDetails(bug.name)">{{ bug.name }}</td>
+        
+        <td (click)="navigateToBugDetails(bug.name)">{{ bug.ProjectName }}</td>
+        <td (click)="navigateToBugDetails(bug.name)">{{ bug.userName }}</td>
+        <td (click)="navigateToBugDetails(bug.name)">{{ bug.state }}</td>
+        <td (click)="navigateToBugDetails(bug.name)"
+            [ngStyle]="{
+            'color': getColorStyleForSeverity(bug.severity).color,
+            'background': getColorStyleForSeverity(bug.severity).background,
+            'border-radius': getColorStyleForSeverity(bug.severity).borderRadius,
+            'text-align': getColorStyleForSeverity(bug.severity).textAlign
+            }">
+        {{ bug.severity }}
+        </td>
+        <td (click)="navigateToBugDetails(bug.name)"
+        [ngStyle]="{
+            'text-align': getColorStyleForSeverity(bug.createdAt).textAlign
+            }">{{ bug.createdAt | date:'dd/MM/yyyy'}}</td>
+        <td (click)="navigateToBugDetails(bug.name)"
+        [ngStyle]="{
+            'color': getColorStyleForSeverity(bug.priority).color,
+            'background': getColorStyleForSeverity(bug.priority).background,
+            'border-radius': getColorStyleForSeverity(bug.priority).borderRadius,
+            'text-align': getColorStyleForSeverity(bug.priority).textAlign
+        }">
+            {{ bug.priority }}
+        </td>
+        <td (click)="navigateToBugDetails(bug.name)"
+        [ngStyle]="{
+            'text-align': getColorStyleForSeverity(bug.createdAt).textAlign
+            }">
+            {{ bug.collaborators[0] }}
+        </td>
+        <td (click)="navigateToBugDetails(bug.name)">
+          <ng-container *ngIf="bug.Answer !== null && bug.Answer.trim() !== ''; else noAnswer">
+            <mat-icon>done</mat-icon>
+            </ng-container>
+            <ng-template #noAnswer>
+                <mat-icon>clear</mat-icon>
+            </ng-template>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+<!-- Controles de paginación -->
+<div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1"><mat-icon>arrow_left</mat-icon></button>    
+    <span>  Pagina No: {{ currentPage }}  </span>
+    <span></span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages"><mat-icon>arrow_right</mat-icon></button>
+    </div>
+</div>
+
+
+        
+</div>

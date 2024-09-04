@@ -1,0 +1,91 @@
+.bug-form-container {
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 200px; /* Ajusta este valor según sea necesario */
+    max-width: 600px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-button {
+    border: none;      /* Elimina el borde del botón */
+    background: none;  /* Elimina el fondo del botón */
+    padding: 0;        /* Elimina el relleno del botón */
+    cursor: pointer;   /* Cambia el cursor al puntero cuando pasa sobre el botón */
+    font-size: inherit; /* Usa el tamaño de fuente heredado para el icono */
+    color: inherit;    /* Usa el color de texto heredado para el icono */
+}
+
+
+.bug-form-container,form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.bug-form-container label {
+    margin-bottom: 8px;
+}
+
+.bug-form-container input,
+.bug-form-container textarea,
+.bug-form-container select {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.bug-form-container button {
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bug-form-container .add-bug-btn:hover {
+    background-color: black;
+}
+
+.bug-form-container .close-button {
+    position: absolute;
+    top: 10px;
+    height: 25px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: red; /* Color del texto */
+    transform: translateY(-50%);
+}
+
+tr:hover {
+    background-color: #f5f5f5; /* Cambia el color de fondo al pasar el ratón sobre la fila */
+}
+
+  /* Establece el cursor a pointer en las filas */
+tr {
+    cursor: pointer;
+}
+
+  /* Agrega estilos de clic a las filas de la tabla */
+tr.clicked {
+    background-color: #e0e0e0; /* Cambia el color de fondo al hacer clic en la fila */
+}
+
+.pagination-controls {
+    position: fixed;
+    bottom: 50px;
+    left: 650px;
+    margin: 10px;
+    z-index: -1;
+    /* Añade otros estilos según sea necesario */
+}

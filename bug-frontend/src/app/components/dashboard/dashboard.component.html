@@ -1,0 +1,51 @@
+<!-- dashboard.component.html -->
+
+<h1>Dashboard</h1>
+
+<div class="chart-container">
+    <div class="chart chart-project">
+        <ngx-charts-pie-chart
+            [view]="view"
+            scheme="fire"
+            [results]="project"
+            [gradient]="gradient"
+            [legend]="false"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+        >
+        </ngx-charts-pie-chart>
+    </div>
+
+    <div class="chart chart-bug">
+        <ngx-charts-pie-chart
+            [view]="view"
+            scheme="cool"
+            [results]="bug"
+            [gradient]="gradient"
+            [legend]="false"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+        >
+        </ngx-charts-pie-chart>
+    </div>
+</div>
+
+<div class="legend-container legend-container-project">
+    <div *ngFor="let item of project" class="legend-item legend-item-project">
+        <span>PROJECTS: {{ item.name }}:</span>
+        <span class="legend-percentage legend-percentage-project">{{ item.percentage }}%</span>
+    </div>
+</div>
+
+<div class="legend-container legend-container-bug">
+    <div *ngFor="let item of bug" class="legend-item legend-item-bug">
+        <span>BUGS: {{ item.name }}:</span>
+        <span class="legend-percentage legend-percentage-bug">{{ item.percentage }}%</span>
+    </div>
+</div>
